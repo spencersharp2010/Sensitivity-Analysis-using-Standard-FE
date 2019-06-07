@@ -1,0 +1,121 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   _______________________________________________________               %
+%   _______________________________________________________               %
+%                                                                         %
+%   Technische Universität München                                        %
+%   Lehrstuhl für Statik, Prof. Dr.-Ing. Kai-Uwe Bletzinger               %
+%   _______________________________________________________               %
+%   _______________________________________________________               %
+%                                                                         %
+%                                                                         %
+%   Authors                                                               %
+%   _______________________________________________________________       %
+%                                                                         %
+%   Dipl.-Math. Andreas Apostolatos    (andreas.apostolatos@tum.de)       %
+%   MSc.-Ing. Aditya Ghantasala        (aditya.ghantasala@tum.de)         %
+%   Dr.-Ing. Roland Wüchner            (wuechner@tum.de)                  %
+%   Prof. Dr.-Ing. Kai-Uwe Bletzinger  (kub@tum.de)                       %
+%   _______________________________________________________________       %
+%                                                                         %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                         %
+%   Matlab Input File                                                     %
+%   _________________                                                     %
+%                                                                         %
+%   FiniteElementAnalysisProgramStructuralAnalysisInstituteTUM            %
+%                                                                         %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                         %
+%   Structural Boundary Value Problem                                     %
+%                                                                         %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+STRUCTURE_ANALYSIS
+ ANALYSIS_TYPE,planeStress
+
+STRUCTURE_MATERIAL_PROPERTIES
+  DENSITY,1.0
+  YOUNGS_MODULUS,1e7
+  POISSON_RATIO,0.33333
+
+STRUCTURE_NLINEAR_SCHEME
+  NLINEAR_SCHEME,UNDEFINED
+
+STRUCTURE_TRANSIENT_ANALYSIS
+ SOLVER STEADY_STATE
+ TIME_INTEGRATION EXPLICIT_EULER
+ START_TIME 0
+ END_TIME 10
+ NUMBER_OF_TIME_STEPS 0.01
+ 
+ STRUCTURE_INTEGRATION
+ DOMAIN user
+ domainNoGP 1
+ boundaryNoGP 1
+ 
+STRUCTURE_NODES
+     166 0.0  NaN  NaN  
+     167 0.0  NaN  NaN  
+     168 0.0  NaN  NaN  
+     169 0.0  NaN  NaN  
+     170 0.0  NaN  NaN  
+     172 0.0  NaN  NaN  
+     173 0.0  NaN  NaN  
+     174 0.0  NaN  NaN  
+STRUCTURE_FORCE_NODES
+      53 boundaryLoad test_case
+      54 boundaryLoad test_case
+      57 boundaryLoad test_case
+      63 boundaryLoad test_case
+      66 boundaryLoad test_case
+      72 boundaryLoad test_case
+      77 boundaryLoad test_case
+      85 boundaryLoad test_case
+      93 boundaryLoad test_case
+     100 boundaryLoad test_case
+     107 boundaryLoad test_case
+     114 boundaryLoad test_case
+     123 boundaryLoad test_case
+     130 boundaryLoad test_case
+     138 boundaryLoad test_case
+     147 boundaryLoad test_case
+     155 boundaryLoad test_case
+     163 boundaryLoad test_case
+     171 boundaryLoad test_case
+     174 boundaryLoad test_case
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                         %
+%   Fluid Boundary Value Problem                                          %
+%                                                                         %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+FLUID_ANALYSIS
+ ANALYSIS_TYPE,PLANE_STRESS
+
+FLUID_MATERIAL_PROPERTIES
+
+FLUID_NLINEAR_SCHEME
+ NLINEAR_SCHEME,NEWTON_RAPSON
+ TOLERANCE,1e-9
+ MAX_ITERATIONS,100
+
+FLUID_TRANSIENT_ANALYSIS
+ SOLVER STEADY_STATE
+ TIME_INTEGRATION BOSSAK
+ START_TIME 0
+ END_TIME 10
+ NUMBER_OF_TIME_STEPS 0.01
+        
+FLUID_ELEMENTS
+
+
+FLUID_DIRICHLET_NODES
+
+FLUID_DIRICHLET_ALE_NODES
+FLUID_NODES
+

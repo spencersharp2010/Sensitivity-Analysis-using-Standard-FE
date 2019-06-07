@@ -1,0 +1,33 @@
+BeginZE C:/Users/spenc/Documents/MATLAB/group1_sensitivityAnalysisFEMLinearElasticity/inputGiD/FEMPlateInMembraneActionAnalysis/test_case.gid/test_case.vv
+   x -4.8423771858215332 6.04134416580200195
+   y 4.37984466552734375 -4.62015485763549805
+   z -10.0767631530761719 10.0767631530761719
+   e 3.35892105102539063
+   v 0 0 0
+   r 1
+   m 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1
+   c -0.43706047534942627 0.668087303638458252 0
+   pd 0
+   pno 0
+   pfo 0
+   pf 4
+   pv 0
+   NowUse 1
+   DrawingType 0
+   LightVector 90 90 150 0
+   OGLShadow(UseShadows) 0
+   OGLShadow(RenderMode) RenderNice
+   OGLShadow(ShadowBias) -0.002
+   OGLShadow(AmbientShadows) 1
+   OGLShadow(UseFBO) 1
+   OGLShadow(FBOSize) 2048
+   OGLShadow(DimmedLightFactor) 0.02
+   OGLStereo(UseStereo) 0
+   OGLStereo(RelativeEyeDistance) 1
+   OGLStereo(FlipEyes) 0
+   OGLStereo(StereoMode) AnaglyphColors
+   OGLStereo(EyeDistance) 0.075
+   OGLStereo(LeftEyeDistance) 1 0 0 1
+   OGLStereo(RightEyeDistance) 0 1 1 1
+EndZE C:/Users/spenc/Documents/MATLAB/group1_sensitivityAnalysisFEMLinearElasticity/inputGiD/FEMPlateInMembraneActionAnalysis/test_case.gid/test_case.vv
+

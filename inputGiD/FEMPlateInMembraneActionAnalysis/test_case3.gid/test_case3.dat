@@ -1,0 +1,53 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   _______________________________________________________               %
+%   _______________________________________________________               %
+%                                                                         %
+%   Technische UniversitÃ¤t MÃ¼nchen                                        %
+%   Lehrstuhl fÃ¼r Statik, Prof. Dr.-Ing. Kai-Uwe Bletzinger               %
+%   _______________________________________________________               %
+%   _______________________________________________________               %
+%                                                                         %
+%                                                                         %
+%   Authors                                                               %
+%   _______________________________________________________________       %
+%                                                                         %
+%   Dipl.-Math. Andreas Apostolatos    (andreas.apostolatos@tum.de)       %
+%   MSc.-Ing. Aditya Ghantasala        (aditya.ghantasala@tum.de)         %
+%   Dr.-Ing. Roland WÃ¼chner            (wuechner@tum.de)                  %
+%   Prof. Dr.-Ing. Kai-Uwe Bletzinger  (kub@tum.de)                       %
+%   _______________________________________________________________       %
+%                                                                         %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                         %
+%   Matlab Input File                                                     %
+%   _________________                                                     %
+%                                                                         %
+%   FiniteElementAnalysisProgramStructuralAnalysisInstituteTUM            %
+%                                                                         %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                         %
+%   Structural Boundary Value Problem                                     %
+%                                                                         %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+STRUCTURE_ANALYSIS
+ ANALYSIS_TYPE,PLANE_STRESS
+
+STRUCTURE_MATERIAL_PROPERTIES
+
+STRUCTURE_NLINEAR_SCHEME
+ NLINEAR_SCHEME,NEWTON_RAPSON
+
+STRUCTURE_TRANSIENT_ANALYSIS
+ SOLVER STEADY_STATE
+ TIME_INTEGRATION EXPLICIT_EULER
+ START_TIME 0
+ END_TIME 10
+ NUMBER_OF_TIME_STEPS 0.01
+
+STRUCTURE_INTEGRATION
+ DOMAIN 
