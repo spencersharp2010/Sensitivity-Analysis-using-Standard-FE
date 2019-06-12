@@ -79,7 +79,8 @@ bodyForces = @computeConstantVerticalBodyForceVct;
 solve_LinearSystem = @solve_LinearSystemMatlabBackslashSolver;
 % solve_LinearSystem = solve_LinearSystemGMResWithIncompleteLUPreconditioning;
 
-% Choose computation of the stiffness matrix
+% Choose computation of the stiffness matrix (CST = constant strain
+% triangle)
 computeStiffMtxLoadVct = @computeStiffMtxAndLoadVctFEMPlateInMembraneActionCST;
 % computeStiffMtxLoadVct = @computeStiffMtxAndLoadVctFEMPlateInMembraneActionMixed;
 

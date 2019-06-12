@@ -1,8 +1,8 @@
 BeginZE C:/Users/spenc/Documents/MATLAB/group1_sensitivityAnalysisFEMLinearElasticity/inputGiD/FEMPlateInMembraneActionAnalysis/test_case7.gid/test_case7.vv
-   x -6.04005146026611328 6.04005146026611328
+   x -9.11877250671386719 9.11877250671386719
    y 5 -5
-   z -17.4226150512695313 17.4226150512695313
-   e 5.80753803253173828
+   z -20.2337284088134766 20.2337284088134766
+   e 6.74457597732543945
    v 0 0 0
    r 1
    m 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1

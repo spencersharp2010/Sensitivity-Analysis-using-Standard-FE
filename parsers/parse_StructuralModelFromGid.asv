@@ -288,62 +288,59 @@ outFctHandle = out(:,3);
 NBC.fctHandle = cell2mat(outFctHandle{1});
 
 %% 11. If boundary load is applied, then get edge connectivity arrays for the Neumann edges
-if strcmp(NBC.loadType(1,:),'boundaryLoad')
-    
-    disp('>> Boundary load detected');
-    
-    if strcmp(outMsg,'outputEnabled')
-        fprintf('>> Neumann boundary edges: %d \n',length(NBC.nodes) - 1);
-    end
+if strcmp(NBC.loadType(1),'boundaryLoad')
+    disp('You have applied a boundary load');
+end
 
-    % Initialize the Neumann boundary lines
-    NBC.lines = zeros(length(unique(NBC.nodes)) - 1,3);
+if strcmp(outMsg,'outputEnabled')
+    fprintf('>> Neumann boundary edges: %d \n',length(NBC.nodes) - 1);
+end
 
-    % Initialize line counter
-    counterLines = 1;
+% Initialize the Neumann boundary lines
+NBC.lines = zeros(length(unique(NBC.nodes)) - 1,3);
 
-    % Loop over each node pair
-    for i = 1:length(NBC.nodes)
-        for j = i:length(NBC.nodes)
-            % If we are not in the same node
-            if i ~= j
-                % Get the node index in the element array
-                nodeI = NBC.nodes(i);
-                nodeJ = NBC.nodes(j);
+% Initialize line counter
+counterLines = 1;
+
+% Loop over each node pair
+for i = 1:length(NBC.nodes)
+    for j = i:length(NBC.nodes)
+        % If we are not in the same node
+        if i ~= j
+            % Get the node index in the element array
+            nodeI = NBC.nodes(i);
+            nodeJ = NBC.nodes(j);
 
 
-                % Find the element indices to which the nodes belong
-                [indexI,~] = find(nodeI == strMsh.elements);
-                [indexJ,~] = find(nodeJ == strMsh.elements);
+            % Find the element indices to which the nodes belong
+            [indexI,~] = find(nodeI == strMsh.elements);
+            [indexJ,~] = find(nodeJ == strMsh.elements);
 
-                % For all the element indices to which indexJ belongs to
-                for k = 1:length(indexJ)
-                    % Find the common elements to which both nodes belong to
-                    commonElmnts = find(indexJ(k) == indexI);
+            % For all the element indices to which indexJ belongs to
+            for k = 1:length(indexJ)
+                % Find the common elements to which both nodes belong to
+                commonElmnts = find(indexJ(k) == indexI);
 
-                    % If there are common elements to which the nodes belong
-                    if norm(commonElmnts) ~= 0 && strcmp(NBC.fctHandle(i,:),NBC.fctHandle(j,:))
-                        % Get the common element index
-                        elementIndex = indexI(commonElmnts);
+                % If there are commont elements to which the nodes belong
+                if norm(commonElmnts) ~= 0 && strcmp(NBC.fctHandle(i,:),NBC.fctHandle(j,:))
+                    % Get the common element index
+                    elementIndex = indexI(commonElmnts);
 
-                        % Store the line into the NBC.line array with the same
-                        % ordering as they are stored in the element array
-                        NBC.lines(counterLines,:) = ...
-                            [NBC.nodes(i) NBC.nodes(j) elementIndex];
+                    % Store the line into the NBC.line array with the same
+                    % ordering as the are stored in the element array
+                    NBC.lines(counterLines,:) = ...
+                        [NBC.nodes(i) NBC.nodes(j) elementIndex];
 
-                        % Get the appropriate function handle for the line
-                        fctHandle(counterLines,:) = NBC.fctHandle(i,:);
+                    % Get the appropriate function handle for the line
+                    fctHandle(counterLines,:) = NBC.fctHandle(i,:);
 
-                        % Update counter
-                        counterLines = counterLines + 1;
-                    end
+                    % Update counter
+                    counterLines = counterLines + 1;
                 end
             end
         end
     end
 end
-
-
 
 
 %NBC.fctHandle = fctHandle;
