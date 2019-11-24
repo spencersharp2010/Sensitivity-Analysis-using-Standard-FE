@@ -1,0 +1,33 @@
+BeginZE C:/Users/Luca/Desktop/afem-project/inputGiD/FEMPlateInMembraneActionAnalysis/Example1AdjointNumerical.gid/Example1AdjointNumerical.vv
+   x -0.72588956356048584 1.72588956356048584
+   y 0.702770829200744629 -0.402770787477493286
+   z -1.65831232070922852 1.65831232070922852
+   e 0.552770793437957764
+   v 0 0 0
+   r 1
+   m 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1
+   c 0.5 0.150000005960464478 0
+   pd 0
+   pno 0
+   pfo 0
+   pf 4
+   pv 0
+   NowUse 1
+   DrawingType 0
+   LightVector 90 90 150 0
+   OGLShadow(UseShadows) 0
+   OGLShadow(RenderMode) RenderNice
+   OGLShadow(ShadowBias) -0.002
+   OGLShadow(AmbientShadows) 1
+   OGLShadow(UseFBO) 1
+   OGLShadow(FBOSize) 2048
+   OGLShadow(DimmedLightFactor) 0.02
+   OGLStereo(UseStereo) 0
+   OGLStereo(RelativeEyeDistance) 1
+   OGLStereo(FlipEyes) 0
+   OGLStereo(StereoMode) AnaglyphColors
+   OGLStereo(EyeDistance) 0.075
+   OGLStereo(LeftEyeDistance) 1 0 0 1
+   OGLStereo(RightEyeDistance) 0 1 1 1
+EndZE C:/Users/Luca/Desktop/afem-project/inputGiD/FEMPlateInMembraneActionAnalysis/Example1AdjointNumerical.gid/Example1AdjointNumerical.vv
+

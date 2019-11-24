@@ -94,13 +94,22 @@ CONDTYPE: over lines
 CONDMESHTYPE: over nodes
 QUESTION: ForceType#CB#(boundaryLoad,whatever)
 VALUE: boundaryLoad
-QUESTION: FunctionHandleToForceComputation
-VALUE: functionHandle
+QUESTION: FunctionHandleToForceComputation#CB#(computeConstantVerticalLoad,computeConstantHorizontalLoad)
+VALUE: computeConstantVerticalLoad
+END CONDITION
+
+NUMBER: 7 CONDITION: Structure-Point-Force
+CONDTYPE: over points
+CONDMESHTYPE: over nodes
+QUESTION: ForceType#CB#(pointLoad,whatever)
+VALUE: pointLoad
+QUESTION: FunctionHandleToForceComputation#CB#(computeConstantVerticalLoad,computeConstantHorizontalLoad)
+VALUE: computeConstantVerticalLoad
 END CONDITION
 
 BOOK: Domains
 
-NUMBER: 7 CONDITION: Fluid-Nodes-Over-Surfaces
+NUMBER: 8 CONDITION: Fluid-Nodes-Over-Surfaces
 CONDTYPE: over surfaces
 CONDMESHTYPE: over elements
 CONDMESHTYPE: over nodes
@@ -138,3 +147,29 @@ CONDTYPE: over surfaces
 CONDMESHTYPE: over elements
 TITLE: Solid
 END CONDITION
+
+NUMBER: 14 CONDITION: Structure_Nodes_for_Displacement_Sensitivity
+CONDTYPE: over surfaces
+CONDMESHTYPE: over elements
+CONDMESHTYPE: over nodes
+TITLE: Solid
+END CONDITION
+
+NUMBER: 15 CONDITION: Structure_Elements_for_von_Mises_Stress_Sensitivity
+CONDTYPE: over surfaces
+CONDMESHTYPE: over elements
+TITLE: Solid
+END CONDITION
+
+NUMBER: 16 CONDITION: Displacement_Constraints_for_Shape_Optimization
+CONDTYPE: over surfaces
+CONDMESHTYPE: over elements
+CONDMESHTYPE: over nodes
+QUESTION: X-Constraint#CB#(0,1)
+VALUE: 0
+QUESTION: Y-Constraint#CB#(0,1)
+VALUE: 0
+QUESTION: Z-Constraint#CB#(0,1)
+VALUE: 0
+END CONDITION
+

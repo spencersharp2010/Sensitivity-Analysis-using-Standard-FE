@@ -19,7 +19,7 @@
 %                                                                         %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [strMsh,homDBC,inhomDBC,valuesInhomDBC,NBC,analysis,parameters,...
-    propNLinearAnalysis,propStrDynamics,gaussInt] = ...
+    propNLinearAnalysis,propStrDynamics,gaussInt,sensAnalysisType,finiteDifference, eneSens,dispSens,vonMisesSens,optAnalysis,optFiniteDifference,optParam,dispOpt,stressOpt] = ...
     parse_StructuralModelFromGid(pathToCase,caseName,outMsg)
 %% Function documentation
 %
@@ -93,7 +93,11 @@ function [strMsh,homDBC,inhomDBC,valuesInhomDBC,NBC,analysis,parameters,...
 %
 % 11. Get edge connectivity arrays for the Neumann edges
 %
-% 12. Appendix
+% 12. Get all the informations which are needed for a sensitivity analysis
+%
+% 13. Get all the informations which are needed for a structural optimization
+%
+% 14. Appendix
 %
 %% Function main body
 if strcmp(outMsg,'outputEnabled')
@@ -341,6 +345,9 @@ if strcmp(NBC.loadType(1,:),'boundaryLoad')
             end
         end
     end
+    
+elseif strcmp(NBC.loadType(1,:),'pointLoad')
+    disp('>> Point load detected');
 end
 
 
@@ -348,7 +355,86 @@ end
 
 %NBC.fctHandle = fctHandle;
 
-%% 12. Appendix
+%% 12. Get all the informations which are needed for a sensitivity analysis
+
+block = regexp(fstring,'SENSITIVITY_ANALYSIS','split');
+block(1) = [];
+out = textscan(block{1},'%s','delimiter',' ','MultipleDelimsAsOne', 1);
+sensAnalysisType = out{1}{2};
+eneSens.status = str2double(out{1}{4});
+dispSens.status = str2double(out{1}{6});
+vonMisesSens.status = str2double(out{1}{8});
+finiteDifference.method = out{1}{10};
+finiteDifference.perturbation = str2double(out{1}{12});
+
+
+block = regexp(fstring,'NODES_FOR_DISPLACEMENT_SENSITIVITY','split'); 
+block(1) = [];
+out = cell(size(block));
+for k = 1:numel(block)
+    out{k} = textscan(block{k},'%f','delimiter',' ','MultipleDelimsAsOne', 1);
+    out{k} = horzcat(out{k}{:});
+end
+out = cell2mat(out);
+dispSens.nodes = out(:);
+
+block = regexp(fstring,'ELEMENTS_FOR_VON_MISES_STRESS_SENSITIVITY','split'); 
+block(1) = [];
+out = cell(size(block));
+for k = 1:numel(block)
+    out{k} = textscan(block{k},'%f %f %f %f','delimiter',' ','MultipleDelimsAsOne', 1);
+    out{k} = horzcat(out{k}{:});
+end
+out = cell2mat(out);
+vonMisesSens.elements = out(:,1);
+
+%% 13. Get all the informations which are needed for a structural optimization
+
+block = regexp(fstring,'STRUCTURAL_OPTIMIZATION','split');
+block(1) = [];
+out = textscan(block{1},'%s','delimiter',' ','MultipleDelimsAsOne', 1);
+optAnalysis.Type = out{1}{2};
+optAnalysis.Objective = out{1}{4};
+if strcmp(out{1}{6},'y-direction')
+dispOpt.direction=2;
+else
+    dispOpt.direction=1;
+end
+optFiniteDifference.method = out{1}{8};
+optFiniteDifference.perturbation = str2double(out{1}{10});
+optParam.iterations = str2double(out{1}{12});
+optParam.factor = str2double(out{1}{14});
+
+block = regexp(fstring,'NODES_FOR_DISPLACEMENT_SENSITIVITY','split'); 
+block(1) = [];
+out = textscan(block{1},'%s','delimiter',' ','MultipleDelimsAsOne', 1);
+dispOpt.node = str2double(out{1}{1});
+
+block = regexp(fstring,'ELEMENTS_FOR_VON_MISES_STRESS_SENSITIVITY','split'); 
+block(1) = [];
+out = textscan(block{1},'%s','delimiter',' ','MultipleDelimsAsOne', 1);
+stressOpt.element = str2double(out{1}{1});
+
+block = regexp(fstring,'CONSTRAINTS_SHAPE_OPTIMIZATION','split'); 
+block(1) = [];
+out = cell(size(block));
+for k = 1:numel(block)
+    out{k} = textscan(block{k},'%f %f %f %f','delimiter',' ','MultipleDelimsAsOne', 1);
+    out{k} = horzcat(out{k}{:});
+end
+out = cell2mat(out);
+optAnalysis.fixX=[];
+optAnalysis.fixY=[];
+for k = 1:size(out,1)
+    if out(k,2)
+    optAnalysis.fixX(end+1)=out(k,1);
+    end
+    if out(k,3)
+    optAnalysis.fixY(end+1)=out(k,1);
+    end
+end
+
+%% 14. Appendix
 if strcmp(outMsg,'outputEnabled')
     % Save computational time
     computationalTime = toc;

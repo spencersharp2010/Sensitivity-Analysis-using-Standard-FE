@@ -47,8 +47,8 @@ hold on;
 
 % Create the force arrows
 [xf,yf,zf] = createForceArrows(mesh.nodes,F);
-
-% load arrows  
+%yf(:,2)=yf(:,1)+(yf(:,2)-yf(:,1))*0.2;
+%load arrows  
 for k =1:length(xf(:,1))
     plot3(xf(k,:),yf(k,:),zf(k,:),'Linewidth',5);
     plot3(xf(k,1),yf(k,1),zf(k,1),'Marker','d','MarkerFaceColor','blue','MarkerSize',10);

@@ -48,8 +48,6 @@ STRUCTURE_MATERIAL_PROPERTIES
 
 STRUCTURE_NLINEAR_SCHEME
  NLINEAR_SCHEME,*GenData(STR_NL_SOLVER-TYPE)
- TOLERANCE,*GenData(STR_TOL)
- MAX_ITERATIONS,*GenData(STR_MAX_IT)
 
 STRUCTURE_TRANSIENT_ANALYSIS
  SOLVER *GenData(STR_TIME_ANA-TYPE)
@@ -57,6 +55,67 @@ STRUCTURE_TRANSIENT_ANALYSIS
  START_TIME *GenData(STR_START_TIME)
  END_TIME *GenData(STR_END_TIME)
  NUMBER_OF_TIME_STEPS *GenData(STR_NUMBER_OF_TIME_STEPS)
+
+STRUCTURE_INTEGRATION
+ DOMAIN *GenData(DOMAIN)
+ domainNoGP *GenData(domainNoGP)
+ boundaryNoGP *GenData(boundaryNoGP)
+
+SENSITIVITY_ANALYSIS
+ ANALYSIS_TYPE *GenData(TYPE_OF_SENSITIVITY_ANALYSIS)
+ STRAIN_ENERGY_STATUS *GenData(strain_energy)
+ DISPLACEMENT_STATUS *GenData(displacement)
+ VMISES_STATUS *GenData(von_Mises_stress)
+ FINITE_DIFFERENCING_METHOD *GenData(FINITE_DIFFERENCING_METHOD)
+ PERTURBATION *GenData(PERTURBATION)
+
+STRUCTURAL_OPTIMIZATION
+ ANALYSIS_TYPE *GenData(TYPE_OF_SENSITIVITY_ANALYSIS_OPTIMIZATION)
+ OBJECTIVE_FUNCTION *GenData(OBJECTIVE_FUNCTION)
+ DIRECTION_DISPLACEMENT_OPTIMIZATION *GenData(DIRECTION_OF_DISPLACEMENT_OPTIMIZATION)
+ FINITE_DIFFERENCING_METHOD *GenData(FINITE_DIFFERENCING_METHOD_OPTIMIZATION)
+ PERTURBATION *GenData(PERTURBATION_OPTIMIZATION)
+ ITERATIONS *GenData(ITERATIONS_OF_OPTIMIZATION)
+ FACTOR_OF_CHANGE *GenData(FACTOR_OF_CHANGE)
+
+NODES_FOR_DISPLACEMENT_SENSITIVITY*\
+*set Cond Structure_Nodes_for_Displacement_Sensitivity *nodes
+*loop nodes OnlyInCond
+*format "%8i"
+
+*NodesNum *\
+*end loop
+
+ELEMENTS_FOR_VON_MISES_STRESS_SENSITIVITY*\
+*set Cond Structure_Elements_for_von_Mises_Stress_Sensitivity *elems
+*loop elems OnlyInCond
+*format "%8i%6i%6i%8i%8i%8i%8i%8i%8i%8i%8i"
+
+*ElemsNum *ElemsConec*\
+*end loop
+
+CONSTRAINTS_SHAPE_OPTIMIZATION*\
+*set Cond Displacement_Constraints_for_Shape_Optimization *nodes
+*loop nodes OnlyInCond
+*format "%8i"
+
+*NodesNum *\
+*if(cond(X-Constraint,int)==1)
+*cond(1)  *\
+*else
+0  *\
+*endif
+*if(cond(Y-Constraint,int)==1)
+*cond(1)  *\
+*else
+0  *\
+*endif
+*if(cond(Z-Constraint,int)==1)
+*cond(1)  *\
+*else
+0 *\
+*endif
+*end loop
 
 STRUCTURE_NODES*\
 *set Cond Structure-Nodes *nodes
@@ -106,7 +165,14 @@ STRUCTURE_FORCE_NODES*\
 *NodesNum *cond(ForceType) *cond(FunctionHandleToForceComputation)*\
 *endif
 *end loop
+*set Cond Structure-Point-Force *nodes
+*loop nodes OnlyInCond
+*format "%8i"
 
+*if(strcmp(cond(ForceType),"pointLoad")==0)
+*NodesNum *cond(ForceType) *cond(FunctionHandleToForceComputation)*\
+*endif
+*end loop
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                         %

@@ -183,6 +183,7 @@ if ~isUnitTest
     if strcmp(outMsg,'outputEnabled')
         fprintf('>> Writing out the results to "%s"\n',strcat(pathToOutput,caseName,'/'));
     end
+  
     writeOutputFEMPlateInMembraneActionToVTK(analysis,propNLinearAnalysis,...
         propStrDynamics,strMsh,parameters,dHat,dDot,dDDot,DOF4Output,caseName,...
         pathToOutput,title,noTimeStep);

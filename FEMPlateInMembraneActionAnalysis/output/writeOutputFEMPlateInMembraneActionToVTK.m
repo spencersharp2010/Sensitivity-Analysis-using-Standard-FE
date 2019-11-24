@@ -216,6 +216,7 @@ for elementID = 1 : noElements
     end
 end
 
+
 % Write out the displacement vector field at each node
 fprintf(output,'POINT_DATA %d\n',noNodes);
 fprintf(output,'VECTORS displacements double\n');
@@ -235,6 +236,22 @@ for elementID = 1 : noElements
         fprintf(output,'\n');
     end
 end
+
+
+%calculation of the von Mises stresses
+ElementNumbering = 1:noElements;
+vonMisesStresses=vonMisesStress(strMsh,analysis,parameters,nodalDisplacement,ElementNumbering);
+%Write out the von Mises stresses
+fprintf(output,'\n' );
+fprintf(output,'SCALARS vonMisesStress double\n');
+fprintf(output,'LOOKUP_TABLE default\n');
+for elementID = 1 : noElements
+    fprintf(output,'  %f\n',vonMisesStresses(elementID));
+    if elementID~=noElements
+        fprintf(output,'\n');
+    end
+end
+
 
 %% 4. Close files
 fclose(output);

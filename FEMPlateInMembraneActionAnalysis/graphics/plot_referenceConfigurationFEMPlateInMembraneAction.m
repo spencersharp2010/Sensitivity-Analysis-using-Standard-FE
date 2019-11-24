@@ -70,7 +70,7 @@ axis equal;
 trimesh(strMsh.elements,strMsh.nodes(:,1),strMsh.nodes(:,2),strMsh.nodes(:,3),'edgecolor',edgeColor,'facecolor',faceColor);
 plot_boundaryConditionsOnMesh(strMsh,homDBC,F);
 grid on;
-title('The initial mesh of the reference configuration');
+title('Undeformed mesh');
 axis on;
 hold off;
 
